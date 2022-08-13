@@ -37,7 +37,39 @@ public class BankService {
 		return names;
 
 	}
+	public List<BankModel> getAllrows() {
+		// TODO Auto-generated method stub
+		List<BankModel> b = bankrepo.findAll();
+		return b;
+	}
+	public List<RecievedPayments> getAllTransactions() {
+		// TODO Auto-generated method stub
+		List<RecievedPayments> transarray = recievedpayments.findAll();
+		return transarray;
+	}
 
+	
+//	the code to get all the payments
+	/*
+	 * 	int paymentNO;
+	String BIC;
+	String paymentCode;
+	int amount;
+	 * */
+	
+//	public List<String> getAllTransactions() {
+//		// TODO Auto-generated method stub
+//		List<String> transactionObj = new ArrayList<String>();
+//		List<> b = bankrepo.findAll();
+//		for (BankModel itr : b) {
+//			names.add(itr.getAccount_Holder_Name());
+//			System.out.println();
+//		}
+//
+//		return transactionObj;
+//
+//	}
+	
 //	public boolean checkEligiblity(String name) {
 //		//  check the eligiblity if sanction is placed on the reciever or not
 ////		if(name)

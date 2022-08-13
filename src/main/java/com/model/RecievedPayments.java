@@ -7,7 +7,6 @@ import javax.persistence.Id;
 public class RecievedPayments {
 	@Id 
 	int paymentNO;
-	
 	String BIC;
 	String paymentCode;
 	int amount;
