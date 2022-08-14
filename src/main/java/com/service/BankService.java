@@ -80,11 +80,11 @@ public class BankService {
 //		return false;
 //	}
 
-	public String checkfound(String custid) {
+	public BankModel checkfound(String custid) {
 		// TODO Auto-generated method stub
 //		this returns the account holders name
 		BankModel b = bankrepo.findById(custid).orElse(null);
-		return b.getAccount_Holder_Name();
+		return b;
 	}
 
 	public String checkReciever(String BIC) {
@@ -95,8 +95,14 @@ public class BankService {
 
 //	for checking balance
 	public int checkBalance(String custid) {
-		BankModel b = bankrepo.findById(custid).orElse(null);
-		return b.getBalance();
+		try {
+			BankModel b = bankrepo.findById(custid).orElse(null);			
+			return b.getBalance();
+		} catch (Exception e) {
+			return 0;
+//			return e;
+			// TODO: handle exception
+		}
 	}
 
 	public boolean checkOverDraft(String custid) {
@@ -108,7 +114,7 @@ public class BankService {
 			return false;
 	}
 
-	public int sendMoney(RecievedPayments BIC,String custid, int sendBalance) {
+	public int sendMoney(String custid, int sendBalance , String paycode) {
 		// TODO Auto-generated method stub
 		BankModel b = bankrepo.findById(custid).orElse(null);
 		int availableMoney = checkBalance(custid);
@@ -121,7 +127,9 @@ public class BankService {
 //			then select the reciever
 
 //			saving the reciever
-				recievedpayments.save(BIC);
+				RecievedPayments transaction = new RecievedPayments(custid,paycode,sendBalance);
+				
+				recievedpayments.save(transaction);
 
 				int availableBalanceAfterSending = availableMoney - sendBalance;
 				b.setBalance(availableMoney - sendBalance);
@@ -132,6 +140,31 @@ public class BankService {
 	}
 
 }
+
+//public int sendMoney(RecievedPayments BIC,String custid, int sendBalance) {
+//	// TODO Auto-generated method stub
+//	BankModel b = bankrepo.findById(custid).orElse(null);
+//	int availableMoney = checkBalance(custid);
+//	boolean overdraftcheck = checkOverDraft(custid);
+//
+//		if (availableMoney > sendBalance || overdraftcheck) {
+//
+////		TODO check eligiblity function to be stuffed here
+////		check sanction in frontend
+////		then select the reciever
+//
+////		saving the reciever
+//			recievedpayments.save(BIC);
+//
+//			int availableBalanceAfterSending = availableMoney - sendBalance;
+//			b.setBalance(availableMoney - sendBalance);
+//			bankrepo.save(b);
+//			return availableBalanceAfterSending;
+//	} else
+//		return availableMoney;
+//}
+
+//}
 
 //public String sendBalance(String customer_ID, int sendingMoney) {
 ////code to subtract balance and check the transfer validity
