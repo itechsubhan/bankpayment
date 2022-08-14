@@ -105,8 +105,8 @@ public class BankService {
 		}
 	}
 
-	public boolean checkOverDraft(String custid) {
-		BankModel b = bankrepo.findById(custid).orElse(null);
+	public boolean checkOverDraft(BankModel b) {
+//		BankModel b = bankrepo.findById(custid).orElse(null);
 		String availablity = b.getOverdraft().toLowerCase();
 		if (availablity.equals("yes"))
 			return true;
@@ -118,7 +118,7 @@ public class BankService {
 		// TODO Auto-generated method stub
 		BankModel b = bankrepo.findById(custid).orElse(null);
 		int availableMoney = checkBalance(custid);
-		boolean overdraftcheck = checkOverDraft(custid);
+		boolean overdraftcheck = checkOverDraft(b);
 
 			if (availableMoney > sendBalance || overdraftcheck) {
 

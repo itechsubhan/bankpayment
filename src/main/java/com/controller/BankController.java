@@ -67,6 +67,12 @@ public class BankController {
 		return bankrepo.findById(id).orElse(null);
 		
 	}
+	@GetMapping("/reciever/{id}")
+	public String checkReciever(@PathVariable String id) {
+		
+		return bankservice.checkReciever(id);
+		
+	}
 
 	
 	@GetMapping("/checkBalance")
