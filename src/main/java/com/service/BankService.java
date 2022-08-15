@@ -114,29 +114,35 @@ public class BankService {
 			return false;
 	}
 
-	public int sendMoney(String custid, int sendBalance , String paycode) {
-		// TODO Auto-generated method stub
-		BankModel b = bankrepo.findById(custid).orElse(null);
-		int availableMoney = checkBalance(custid);
-		boolean overdraftcheck = checkOverDraft(b);
-
+	public int sendMoney(String custid,String bic, int sendBalance , String paycode, String recieverAccNo) {
+		// TODO Auto-generated method stubtract
+		try {
+			BankModel b = bankrepo.findById(custid).orElse(null);
+			int availableMoney = checkBalance(custid);
+			boolean overdraftcheck = checkOverDraft(b);
+			
 			if (availableMoney > sendBalance || overdraftcheck) {
-
+				
 //			TODO check eligiblity function to be stuffed here
 //			check sanction in frontend
 //			then select the reciever
-
+				
 //			saving the reciever
-				RecievedPayments transaction = new RecievedPayments(custid,paycode,sendBalance);
+				RecievedPayments transaction = new RecievedPayments(custid,bic,recieverAccNo,paycode,sendBalance);
 				
 				recievedpayments.save(transaction);
-
+				
 				int availableBalanceAfterSending = availableMoney - sendBalance;
 				b.setBalance(availableMoney - sendBalance);
 				bankrepo.save(b);
 				return availableBalanceAfterSending;
-		} else
-			return availableMoney;
+			} else
+				return availableMoney;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
 	}
 
 }

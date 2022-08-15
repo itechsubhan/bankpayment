@@ -83,8 +83,8 @@ public class BankController {
 	@CrossOrigin(origins = "*" )
 	@GetMapping("/sendMoney")
 //	sendMoney(String custid,int sendBalance)
-	public int sendMoney(@RequestParam String custid,int sendBalance,String paycode) {
-		return bankservice.sendMoney(custid, sendBalance,paycode );
+	public int sendMoney(@RequestParam String custid,String bic,int sendBalance,String paycode, String recieverAccNo) {
+		return bankservice.sendMoney(custid, bic, sendBalance,paycode,recieverAccNo );
 	}
 	
 	

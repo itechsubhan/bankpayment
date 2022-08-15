@@ -11,8 +11,25 @@ public class RecievedPayments {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int paymentNO;
 	String BIC;
+	String RecieverAccountNo;
 	String paymentCode;
 	int amount;
+	
+	String CustomerId;
+	public String getCustomerId() {
+		return CustomerId;
+	}
+	public void setCustomerId(String customerId) {
+		CustomerId = customerId;
+	}
+	
+	public String getRecieverAccountNo() {
+		return RecieverAccountNo;
+	}
+	public void setRecieverAccountNo(String recieverAccountNo) {
+		RecieverAccountNo = recieverAccountNo;
+	}
+	
 
 	public String getBIC() {
 		return BIC;
@@ -32,17 +49,12 @@ public class RecievedPayments {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public RecievedPayments(String BIC, String paymentCode, int amount) {
+	public RecievedPayments(String customerId,String bIC, String recieverAccountNo, String paymentCode, int amount) {
 		super();
 //		this.paymentNO = paymentNO;
-		this.BIC = BIC;
-		this.paymentCode = paymentCode;
-		this.amount = amount;
-	}
-	public RecievedPayments(int paymentNO, String BIC, String paymentCode, int amount) {
-		super();
-		this.paymentNO = paymentNO;
-		this.BIC = BIC;
+		CustomerId=customerId;
+		BIC = bIC;
+		RecieverAccountNo = recieverAccountNo;
 		this.paymentCode = paymentCode;
 		this.amount = amount;
 	}
